@@ -1,14 +1,25 @@
 @extends('layouts.template')
 
 @section('main_container')
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
+        <div class="col-md-8">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Update User') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('SubmitUpdateUser') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('SubmitUpdateUser',Auth::id()) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">

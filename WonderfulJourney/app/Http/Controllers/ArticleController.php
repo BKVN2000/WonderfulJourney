@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Helper\UploadFile as HelperUploadFile;
+use App\Helpers\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -26,6 +30,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
+        return view('member.postArticle');
     }
 
     /**
@@ -37,6 +42,36 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validator($request->all())->validate();
+
+        $fileName =  HelperUploadFile::UploadFile($request['photo'],$request['title']);
+
+        Article::create([
+            'title' => $request['title'],
+            'user_id' => Auth::id(),
+            'category_id' => $request['category_id'],
+            'imageURL' => $fileName,
+            'description' => $request['description'],
+        ]);
+
+        $articles = Auth::user()->articles;
+        return view('member.viewArticles',compact('articles'));
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'title' => ['required', 'string', 'max:255'],
+            'category_id' => ['required'],
+            'photo' => ['required','image'],
+            'description' => ['required', 'string', 'max:255']
+        ]);
     }
 
     /**
@@ -48,6 +83,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         //
+        return view('viewArticleDetail',compact('article'));
     }
 
     /**
@@ -82,5 +118,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         //
+        $article->delete();
+        return back();
     }
 }

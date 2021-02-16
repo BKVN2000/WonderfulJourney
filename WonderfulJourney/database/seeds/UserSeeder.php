@@ -30,9 +30,10 @@ class UserSeeder extends Seeder
                 'role' => 'Admin',
                 'phone_number' => '321323123123',
             ], 
+            
             [
-                'name' => 'vanessa',
-                'email' => 'vanessa@email.com',
+                'name' => 'drake setiawan',
+                'email' => 'drake@email.com',
                 'password' => bcrypt('AAAaaa123'),
                 'role' => 'Member',
                 'phone_number' => '321323123123',          

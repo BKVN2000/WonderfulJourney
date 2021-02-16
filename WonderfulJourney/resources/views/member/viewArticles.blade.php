@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <a href="{{route('ShowPostArticleForm')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Create new blog</a>
-            <table class="table table-striped">
+            <table class="table table-striped mt-5">
                 <thead>
                     <tr>
                         <th scope="col">Title</th>
@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @empty($articles)
+                    @if($articles->count() === 0)
                         <tr>
                             <td colspan="2" class="text-center"><h2>You don't have any post yet</h2></td>
                         </tr>

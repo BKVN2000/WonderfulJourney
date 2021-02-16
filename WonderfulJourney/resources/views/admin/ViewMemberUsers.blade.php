@@ -13,6 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                @if($articles->count() === 0) 
                     @foreach($users as $user)
                         <tr>
                             <td>{{$user->name}}</td>

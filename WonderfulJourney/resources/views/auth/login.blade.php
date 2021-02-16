@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
-@section('content')
-<div class="container">
+@section('main_container')
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -53,6 +53,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('login') }}
+                                </button>
                             </div>
                         </div>
                     </form>

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <script  src="{{asset('assets/js/jquery.min.js') }}" ></script>
+    <script  src="{{asset('assets/js/bootstrap.js') }}" ></script>
+    <script  src="{{asset('assets/js/bootstrap.min.js') }}" ></script>
 
 </head>
 <body>
@@ -21,12 +21,12 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategory" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownCategory" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Category
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownCategory">
                         @foreach($categories as $category)
-                            <a class="dropdown-item" href="{{route('ShowArticleByCategory',$category->id)}}">{{$category->category_name}}</a>  
+                            <a class="dropdown-item" href="{{route('ShowArticleByCategory',$category->id)}}">{{$category->name}}</a>  
                         @endforeach          
                     </div>
                 </li>
@@ -42,11 +42,11 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('UpdateUser') }}">Profile</a>
+                            <a class="nav-link" href="{{ route('ShowUpdateUserForm',Auth::id())}}">Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ShowAllArticles',auth()->user()->id)}}">Blog</a>
+                            <a class="nav-link" href="{{ route('ShowMemberArticles',auth()->user()->id)}}">Blog</a>
                         </li>
                     @endif
                 @endauth
@@ -56,7 +56,7 @@
                 <a class="nav-link" href="{{route('register')}}">SignUp</a>  
                 <a class="nav-link" href="{{route('login')}}">Login</a>
             @else
-                <a class="nav-link"><h4>Welcome, {{Auth::user()->name}}</h4></a>  
+                <a class="nav-link"><small>Welcome, {{Auth::user()->name}}</small></a>  
 
                 <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();

@@ -4,10 +4,10 @@
 <div class="container mt-4">
     <div class="row mt-5">
         <div class="col-md-12">
-            <h2 class="font-weight-bold">{{$category->category_name}}</h2>
+            <h2 class="font-weight-bold">{{$category->name}}</h2>
         </div>
         
-        @empty($category->articles)
+        @if($category->articles->count() === 0)
             <div class="col-md-12">
                 <h2>There is no article in this category</h2>
             </div>       
@@ -18,8 +18,8 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$article->title}}</h5>
                             <p class="card-text">
-                                @if (strlen($article->description) > 10)
-                                    {{str_replace(substr($article->description,10),"....",$article->description)}}
+                                @if (strlen($article->description) > 40)
+                                    {{substr($article->description,0,40)."..."}}
                                 @else
                                     {{$article->description}}
                                 @endif
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             @endforeach
-        @endempty
+        @endif
     </div>
 </div>
 @endsection
